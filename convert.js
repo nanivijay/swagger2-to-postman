@@ -187,7 +187,7 @@ var uuidv4 = require('uuid/v4'),
                     'responses': [],
                     'tests': '',
                     'collectionId': root.collectionId,
-                    'synced': false
+                    'synced': false,
                 },
                 thisParams = this.getParamsForPathItem(params, operation.parameters),
                 hasQueryParams = false,
@@ -217,6 +217,7 @@ var uuidv4 = require('uuid/v4'),
 
             request.method = method;
             request.name = operation.summary;
+            request.operationId = operation.operationId;
             request.time = (new Date()).getTime();
 
             // Handle custom swagger attributes for postman aws integration
@@ -319,10 +320,10 @@ var uuidv4 = require('uuid/v4'),
                 return;
             }
 
-            // var paramsForPathItem = this.getParamsForPathItem(this.baseParams, pathItem.parameters),
-            var acceptedPostmanVerbs = [
-                'get', 'put', 'post', 'patch', 'delete', 'copy', 'head', 'options',
-                'link', 'unlink', 'purge', 'lock', 'unlock', 'propfind', 'view'],
+            var paramsForPathItem = this.getParamsForPathItem(this.baseParams, pathItem.parameters),
+                acceptedPostmanVerbs = [
+                    'get', 'put', 'post', 'patch', 'delete', 'copy', 'head', 'options',
+                    'link', 'unlink', 'purge', 'lock', 'unlock', 'propfind', 'view'],
                 numVerbs = acceptedPostmanVerbs.length,
                 i,
                 verb;
@@ -340,7 +341,7 @@ var uuidv4 = require('uuid/v4'),
                         verb.toUpperCase(),
                         pathItem[verb],
                         folderName,
-                        this.getParamsForPathItem(this.baseParams, pathItem[verb].parameters)
+                        paramsForPathItem
                     );
                 }
             }
