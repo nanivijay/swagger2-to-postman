@@ -319,10 +319,10 @@ var uuidv4 = require('uuid/v4'),
                 return;
             }
 
-            var paramsForPathItem = this.getParamsForPathItem(this.baseParams, pathItem.parameters),
-                acceptedPostmanVerbs = [
-                    'get', 'put', 'post', 'patch', 'delete', 'copy', 'head', 'options',
-                    'link', 'unlink', 'purge', 'lock', 'unlock', 'propfind', 'view'],
+            // var paramsForPathItem = this.getParamsForPathItem(this.baseParams, pathItem.parameters),
+            var acceptedPostmanVerbs = [
+                'get', 'put', 'post', 'patch', 'delete', 'copy', 'head', 'options',
+                'link', 'unlink', 'purge', 'lock', 'unlock', 'propfind', 'view'],
                 numVerbs = acceptedPostmanVerbs.length,
                 i,
                 verb;
@@ -340,7 +340,7 @@ var uuidv4 = require('uuid/v4'),
                         verb.toUpperCase(),
                         pathItem[verb],
                         folderName,
-                        paramsForPathItem
+                        this.getParamsForPathItem(this.baseParams, pathItem[verb].parameters)
                     );
                 }
             }
